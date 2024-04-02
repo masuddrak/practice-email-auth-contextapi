@@ -4,7 +4,7 @@ import { firbaseContext } from "../MyContextComponents/FirebaseComponent";
 import { sendEmailVerification } from "firebase/auth";
 
 const SignUp = () => {
-    const {createUser}=useContext(firbaseContext)
+    const { createUser } = useContext(firbaseContext)
 
     const nameRef = useRef(null)
     useEffect(() => {
@@ -16,23 +16,23 @@ const SignUp = () => {
         const email = e.target.email.value
         const password = e.target.password.value
         console.log(username, email, password)
-        createUser(email,password)
-        .then(result=>{
-            sendEmailVerification(result.user)
-      
-            console.log(result.user)
+        createUser(email, password)
+            .then(result => {
+                sendEmailVerification(result.user)
 
-        })
-        .catch(error=>{
-            console.log(error.message)
-        })
+                console.log(result.user)
+
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
 
     }
 
 
     return (
         <div className="flex justify-center ">
-            <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800 border-[0.2px] border-gray-400-200">
+            <div className="w-full max-w-md p-8 space-y-3 rounded-xl  dark:text-gray-800 border-[0.2px] border-gray-100">
                 <h1 className="text-2xl font-bold text-center">Sign Up</h1>
                 <form onSubmit={handelRegister} action="" className="space-y-6">
                     <div className="space-y-1 text-sm">
@@ -54,8 +54,8 @@ const SignUp = () => {
                 </form>
 
 
-                <p className="text-xs text-center sm:px-6 dark:text-gray-600"> have an account?
-                    <Link rel="noopener noreferrer" href="#" className="underline dark:text-gray-800">Sign In</Link>
+                <p className=" text-center sm:px-6 dark:text-gray-600">Are You New?
+                    <Link to="/login" rel="noopener noreferrer" href="#" className="underline text-green-500 ">Sign In</Link>
                 </p>
             </div>
 

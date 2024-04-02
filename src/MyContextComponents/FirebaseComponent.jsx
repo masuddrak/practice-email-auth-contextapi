@@ -1,30 +1,59 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import PropTypes from 'prop-types';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import auth from "../Firebase/Firebase.cofig";
+
 
 export const firbaseContext = createContext()
 
 const FirebaseComponent = ({ children }) => {
-    const [spiUser,setSpiUser]=useState()
+    const [myPopup, setMyPopup] = useState()
+    const [spiUser, setSpiUser] = useState(null)
+    const setTimeOutRef = useRef()
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
     }
-    const logoutUers=()=>{
+    const loginUser = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+
+    }
+    const logoutUers = () => {
         return signOut(auth)
     }
     // manage users 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const observerID = onAuthStateChanged(auth, (user) => {
+            console.log(user,"user vistef")
+            setSpiUser(user)
             if (user) {
-               setSpiUser(user.email)
+                clearInterval(setTimeOutRef.current)
+                console.log(user)
+                
             } else {
                 // User is signed out
                 // ...
             }
         });
+        return () => {
+            observerID()
+        }
     }, [])
-    const authUsers = { createUser,spiUser,logoutUers }
+
+    const popu = <>
+        <h1 className="text-7xl">please login</h1>
+    </>
+
+
+    useEffect(() => {
+        const setItmeID = setInterval(() => {
+            setMyPopup(popu.props.children.props.children
+            )
+
+        }, 2000)
+        setTimeOutRef.current = setItmeID
+    }, [])
+    // console.log(myPopup)
+    const authUsers = { createUser, spiUser, logoutUers, loginUser, setSpiUser, myPopup }
     return (
         <firbaseContext.Provider value={authUsers}>
             {children}

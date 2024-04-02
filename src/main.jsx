@@ -1,4 +1,4 @@
-import React from 'react'
+
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import {
@@ -12,6 +12,7 @@ import About from './Pages/About';
 import MyContextComponent from './MyContextComponents/MyContextComponent';
 import SignUp from './Pages/SignUp';
 import FirebaseComponent from './MyContextComponents/FirebaseComponent';
+import Login from './MyContextComponents/Login';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,16 +33,20 @@ const router = createBrowserRouter([
       {
         path: "/signUp",
         element: <SignUp></SignUp>
+      },
+      {
+        path: "/login",
+        element: <Login></Login>
       }
     ]
   },
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <MyContextComponent>
       <FirebaseComponent>
         <RouterProvider router={router} />
       </FirebaseComponent>
     </MyContextComponent>
-  </React.StrictMode>,
+
 )

@@ -8,9 +8,10 @@ const Header = () => {
     const handelLogout = () => {
         logoutUers()
         .then(() => {
+            // setSpiUser("")
             // Sign-out successful.
         })
-        .catch((error) => {
+        .catch(() => {
             // An error happened.
         });
     }
@@ -18,7 +19,7 @@ const Header = () => {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/about">About</NavLink></li>
         <li><NavLink to="/contact">Contact</NavLink></li>
-        <li><NavLink to="/signUp">Sign Up</NavLink></li>
+        
     </>
     return (
         <div>
@@ -40,12 +41,13 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                
                     {spiUser ?
                         <div className="flex">
-                            <p>{spiUser}</p>
+                            <p>{spiUser.email}</p>
                             <button onClick={handelLogout} className="btn btn-secondary">LogOut</button>
                         </div>
-                        : <button>Login</button>}
+                        : <NavLink to="/signUp" className="text-green-600 border-gray-100 border-[0.2px] px-3 py-1">Sign Up</NavLink>}
                 </div>
             </div>
         </div>
